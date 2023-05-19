@@ -29,16 +29,10 @@ function App() {
   };
 
   const deleteStudent = (id) => {
-    Axios.delete(`http://localhost:3001/api/delete/${id}`)
-      .then(() => {
-        // Filter out the deleted student from the data state
-        const updatedData = data.filter((student) => student.id !== id);
-        setData(updatedData);
-        console.log("Value deleted");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    Axios.delete(`http://localhost:3001/api/delete/${id}`);
+    const updatedData = data.filter((student) => student.id !== id);
+    setData(updatedData);
+    console.log("Value deleted");
   };
 
   const updateStudent = () => {};
