@@ -31,6 +31,15 @@ app.post("/api/insert", (req, res) => {
   });
 });
 
+app.delete("/api/delete/:id", (req, res) => {
+  console.log("function called");
+  const id = req.params.id;
+  const sqlDelete = "Delete from studentdb where id=?";
+  db.query(sqlDelete, id, (err, result) => {
+    console.log("value deleted");
+  });
+});
+
 app.listen(3001, () => {
   console.log("Backend running");
 });

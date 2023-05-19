@@ -24,9 +24,25 @@ function App() {
       name: name,
       age: age,
     }).then(() => {
-      alert("Values Added");
+      setData([...data, { name, age }]);
     });
   };
+
+  const deleteStudent = (id) => {
+    Axios.delete(`http://localhost:3001/api/delete/${id}`)
+      .then(() => {
+        // Filter out the deleted student from the data state
+        const updatedData = data.filter((student) => student.id !== id);
+        setData(updatedData);
+        console.log("Value deleted");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const updateStudent = () => {};
+
   return (
     <div className="App">
       <h1>Student Database</h1>
@@ -62,9 +78,22 @@ function App() {
       <div className="data">
         {data.map((student) => {
           return (
-            <p id={student.id}>
-              {student.id} = {student.name} {student.age}
-            </p>
+            <div id={student.id} className="card">
+              <div className="card-1">
+                <h1>{student.name}</h1>
+                <h2>{student.age}</h2>
+                <h5>{student.id}</h5>
+              </div>
+              <div className="card-2">
+                <button onClick={() => deleteStudent(student.id)}>
+                  Delete
+                </button>
+                <input type="text" />
+                <button onClick={() => updateStudent(student.id)}>
+                  Update Age
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
